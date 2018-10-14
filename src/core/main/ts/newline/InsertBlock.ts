@@ -28,7 +28,7 @@ const isTableCell = function (node) {
 };
 
 const emptyBlock = function (elm) {
-  elm.innerHTML = '<br data-mce-bogus="1">';
+  elm.innerHTML = elm.innerHTML + '<br data-mce-bogus="1">';
 };
 
 const containerAndSiblingName = function (container, nodeName) {
@@ -224,6 +224,11 @@ const insert = function (editor, evt) {
       setForcedBlockAttrs(editor, block);
     } else {
       block = parentBlock.cloneNode(false);
+      if (parentBlock.children.length > 0 && parentBlock.children[0].nodeName === 'INPUT') {
+        const checkbox = dom.create('INPUT');
+        checkbox.type = 'checkbox';
+        block.appendChild(checkbox);
+      }
     }
 
     caretNode = block;
