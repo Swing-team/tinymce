@@ -173,6 +173,11 @@ const applyList = function (editor, listName: string, detail = {}) {
         const inputBlock = dom.create('INPUT');
         inputBlock.type = 'checkbox';
         block.insertBefore(inputBlock, block.firstChild);
+        for (const childNode of block.children) {
+          if (NodeType.isBr(childNode)) {
+            dom.remove(childNode);
+          }
+        }
       }
       block.parentNode.insertBefore(listBlock, block);
       listBlock.appendChild(block);

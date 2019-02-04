@@ -32,6 +32,12 @@ const createNewTextBlock = function (editor, contentNode, blockName?): DocumentF
       DOM.setAttribs(textBlock, editor.settings.forced_root_block_attrs);
     }
 
+    for (const childNode of contentNode.children) {
+      if (NodeType.isCheckBox(childNode)) {
+        contentNode.removeChild(childNode);
+      }
+    }
+
     if (!NodeType.isBlock(contentNode.firstChild, blockElements)) {
       fragment.appendChild(textBlock);
     }

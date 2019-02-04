@@ -46,7 +46,12 @@ const findNextCaretContainer = function (editor, rng, isForward, root) {
       return node;
     }
 
-    if (nonEmptyBlocks[node.nodeName]) {
+    // empty checklist
+    if (isForward && NodeType.isCheckListItemNode(node) && NodeType.isCheckBox(node.lastChild)) {
+      return node;
+    }
+
+    if (nonEmptyBlocks[node.nodeName] && !NodeType.isCheckBox(node)) {
       return node;
     }
 
@@ -101,6 +106,14 @@ const mergeLiElements = function (dom, fromElm, toElm) {
   node = toElm.lastChild;
   if (node && NodeType.isBr(node) && fromElm.hasChildNodes()) {
     dom.remove(node);
+  }
+
+  if (fromElm.hasChildNodes() && NodeType.isCheckListItemNode(fromElm)) {
+    for (const childNode of fromElm.children) {
+      if (NodeType.isCheckBox(childNode)) {
+        dom.remove(childNode);
+      }
+    }
   }
 
   if (NodeType.isEmpty(dom, toElm, true)) {

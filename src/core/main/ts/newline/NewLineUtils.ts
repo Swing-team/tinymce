@@ -55,7 +55,16 @@ const moveToCaretPosition = function (editor, root) {
         break;
       }
 
-      if (moveCaretBeforeOnEnterElementsMap[node.nodeName.toLowerCase()]) {
+      if ((node.nodeName === 'INPUT') && (node.type === 'checkbox')) {
+        if (root.nextSibling && root.nextSibling.nodeName === 'LI') {
+          rng.setStartAfter(node);
+          rng.setEndAfter(node);
+        } else {
+          rng.setStartAfter(root.lastChild);
+          rng.setEndAfter(root.lastChild);
+        }
+        break;
+      } else if (moveCaretBeforeOnEnterElementsMap[node.nodeName.toLowerCase()]) {
         rng.setStartBefore(node);
         rng.setEndBefore(node);
         break;

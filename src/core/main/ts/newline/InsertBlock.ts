@@ -28,7 +28,9 @@ const isTableCell = function (node) {
 };
 
 const emptyBlock = function (elm) {
-  elm.innerHTML = elm.innerHTML + '<br data-mce-bogus="1">';
+  if (elm.innerHTML === '') {
+    elm.innerHTML = '<br data-mce-bogus="1">';
+  }
 };
 
 const containerAndSiblingName = function (container, nodeName) {
@@ -434,6 +436,11 @@ const insert = function (editor, evt) {
     fragment = tmpRng.extractContents();
     trimLeadingLineBreaks(fragment);
     newBlock = fragment.firstChild;
+    if (parentBlock.children.length > 0 && parentBlock.children[0].nodeName === 'INPUT') {
+      const checkbox = dom.create('INPUT');
+      checkbox.type = 'checkbox';
+      newBlock.insertBefore(checkbox, newBlock.firstChild);
+    }
     dom.insertAfter(fragment, parentBlock);
     trimInlineElementsOnLeftSideOfBlock(dom, nonEmptyElementsMap, newBlock);
     addBrToBlockIfNeeded(dom, parentBlock);

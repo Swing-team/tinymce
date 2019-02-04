@@ -22,8 +22,23 @@ const isListItemNode = function (node) {
   return node && /^(LI|DT|DD)$/.test(node.nodeName);
 };
 
+const isCheckListItemNode = function (node) {
+  if (node && isListItemNode(node)) {
+    for (const child of node.children) {
+      if ((child.nodeName === 'INPUT') && child.type === 'checkbox') {
+        return true;
+      }
+    }
+  }
+  return false;
+};
+
 const isTableCellNode = function (node) {
   return node && /^(TH|TD)$/.test(node.nodeName);
+};
+
+const isCheckBox = function (node) {
+  return node && node.nodeName === 'INPUT' && node.type === 'checkbox';
 };
 
 const isBr = function (node) {
@@ -76,7 +91,9 @@ export default {
   isTextNode,
   isListNode,
   isListItemNode,
+  isCheckListItemNode,
   isTableCellNode,
+  isCheckBox,
   isBr,
   isFirstChild,
   isLastChild,

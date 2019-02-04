@@ -26,12 +26,17 @@ const splitList = function (editor, ul, li, newBlock?) {
     DOM.remove(targetNode);
   };
 
+  const findAndRemoveCheckbox = function (root) {
+    for (const innerNode of root.children[0].children) {
+      if (innerNode.nodeName === 'INPUT') {
+        root.children[0].removeChild(innerNode);
+      }
+    }
+  };
+
   bookmarks = DOM.select('span[data-mce-type="bookmark"]', ul);
   newBlock = newBlock || TextBlock.createNewTextBlock(editor, li);
-  if (newBlock.children[0].children.length > 0
-    && newBlock.children[0].children[0].nodeName === 'INPUT') {
-    newBlock.children[0].removeChild(newBlock.children[0].children[0]);
-  }
+  findAndRemoveCheckbox(newBlock);
   tmpRng = DOM.createRng();
   tmpRng.setStartAfter(li);
   tmpRng.setEndAfter(ul);

@@ -19,6 +19,21 @@ PluginManager.add('listwithcheckbox', function (editor) {
   Buttons.register(editor);
   Commands.register(editor);
 
+  // FIXME: Mohammad 10-23-2018: find a better place to put this in
+  editor.on('selectionchange', function (e) {
+    const root = editor.selection.getNode();
+    const rng = editor.selection.getRng();
+    if ((root.nodeName === 'LI') && (root.children.length > 0)
+      && (root.firstChild.nodeName === 'INPUT')
+      && (root.firstChild.type === 'checkbox')
+      && (rng.startOffset === 0)
+      && editor.selection.isCollapsed()) {
+        const newRng = rng.cloneRange();
+        newRng.setStartAfter(root.firstChild);
+        editor.selection.setRng(newRng);
+      }
+  });
+
   return Api.get(editor);
 });
 
