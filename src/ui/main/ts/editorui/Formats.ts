@@ -216,7 +216,7 @@ const registerMenuItems = function (editor, formatMenu) {
 const registerButtons = function (editor, formatMenu) {
   editor.addButton('styleselect', {
     type: 'menubutton',
-    text: 'Formats',
+    icon: 'header',
     menu: formatMenu,
     onShowMenu () {
       if (editor.settings.style_formats_autohide) {
