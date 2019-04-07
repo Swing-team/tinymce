@@ -38,14 +38,15 @@ const setup = function (editor) {
     if (unprocessedCodeSamples.length) {
       editor.undoManager.transact(function () {
         unprocessedCodeSamples.each(function (idx, elm) {
-          $(elm).find('br').each(function (idx, elm) {
+          const codeElm = elm.children[0];
+          $(codeElm).find('br').each(function (idx, elm) {
             elm.parentNode.replaceChild(editor.getDoc().createTextNode('\n'), elm);
           });
 
           elm.contentEditable = false;
-          elm.innerHTML = editor.dom.encode(elm.textContent);
-          Prism.highlightElement(elm);
-          elm.className = $.trim(elm.className);
+          codeElm.innerHTML = editor.dom.encode(codeElm.textContent);
+          Prism.highlightElement(codeElm);
+          codeElm.className = $.trim(codeElm.className);
         });
       });
     }

@@ -29,12 +29,12 @@ const insertCodeSample = function (editor, language, code) {
     code = DOMUtils.DOM.encode(code);
 
     if (node) {
-      editor.dom.setAttrib(node, 'class', 'language-' + language);
+      editor.dom.setAttrib(node.children[0], 'class', 'language-' + language);
       node.innerHTML = code;
       Prism.highlightElement(node);
       editor.selection.select(node);
     } else {
-      editor.insertContent('<pre id="__new" class="language-' + language + '">' + code + '</pre>');
+      editor.insertContent('<pre id="__new"><code class="language-' + language + '">' + code + '</code></pre>');
       editor.selection.select(editor.$('#__new').removeAttr('id')[0]);
     }
   });

@@ -9,7 +9,7 @@
  */
 
 function isCodeSample(elm) {
-  return elm && elm.nodeName === 'PRE' && elm.className.indexOf('language-') !== -1;
+  return elm && elm.nodeName === 'PRE' && elm.children[0].nodeName === 'CODE' && elm.children[0].className.indexOf('language-') !== -1;
 }
 
 function trimArg(predicateFn) {
