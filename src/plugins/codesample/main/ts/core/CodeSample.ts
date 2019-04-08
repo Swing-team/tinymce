@@ -30,8 +30,8 @@ const insertCodeSample = function (editor, language, code) {
 
     if (node) {
       editor.dom.setAttrib(node.children[0], 'class', 'language-' + language);
-      node.innerHTML = code;
-      Prism.highlightElement(node);
+      node.children[0].innerHTML = code;
+      Prism.highlightElement(node.children[0]);
       editor.selection.select(node);
     } else {
       editor.insertContent('<pre id="__new"><code class="language-' + language + '">' + code + '</code></pre>');
