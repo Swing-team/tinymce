@@ -1171,6 +1171,7 @@ Prism.languages.python = {
     punctuation: /\$?\(\(?|\)\)?|\.\.|[{}[\];]/
   };
 
+  // tslint:disable-next-line:no-string-literal
   const inside = insideString.variable[1]['inside'];
   inside.string = Prism.languages.bash.string;
   inside.function = Prism.languages.bash.function;
@@ -1656,8 +1657,8 @@ Prism.languages.yml = Prism.languages.yaml;
     pattern: /\\[\\(){}[\]^$+*?|.]/,
     alias: 'escape'
   };
-  const escape = /\\(?:x[\da-fA-F]{2}|u[\da-fA-F]{4}|u\{[\da-fA-F]+\}|c[a-zA-Z]|0[0-7]{0,2}|[123][0-7]{2}|.)/
-  const charClass = /\\[wsd]|\.|\\p{[^{}]+}/i
+  const escape = /\\(?:x[\da-fA-F]{2}|u[\da-fA-F]{4}|u\{[\da-fA-F]+\}|c[a-zA-Z]|0[0-7]{0,2}|[123][0-7]{2}|.)/;
+  const charClass = /\\[wsd]|\.|\\p{[^{}]+}/i;
 
   const rangeChar = '(?:[^\\\\-]|' + escape.source + ')';
   const range = RegExp(rangeChar + '-' + rangeChar);
